@@ -22,6 +22,4 @@ public class FoodCategory extends BaseEntity {
     private List<MemberPrefer> memberPrefers;
 
     private String name;
-
-
 }
