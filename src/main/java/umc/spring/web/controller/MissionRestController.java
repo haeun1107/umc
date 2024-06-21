@@ -1,0 +1,31 @@
+package umc.spring.web.controller;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import umc.spring.apiPayload.ApiResponse;
+import umc.spring.service.MissionService.MissionCommandService;
+import umc.spring.web.dto.MemberMissionRequestDTO;
+import umc.spring.web.dto.MemberMissionResponseDTO;
+import umc.spring.web.dto.MissionRequestDTO;
+import umc.spring.web.dto.MissionResponseDTO;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/mission")
+public class MissionRestController {
+
+    public final MissionCommandService missionCommandService;
+
+    @PostMapping("/add")
+    public ApiResponse<MissionResponseDTO> addMission(@RequestBody MissionRequestDTO missionRequestDTO) {
+        return ApiResponse.onSuccess(missionCommandService.addMission(missionRequestDTO));
+    }
+
+    @PostMapping("/challenge")
+    public ApiResponse<MemberMissionResponseDTO> challengeMission(@RequestBody MemberMissionRequestDTO memberMissionRequestDTO) {
+        return ApiResponse.onSuccess(missionCommandService.challengeMission(memberMissionRequestDTO));
+    }
+}
