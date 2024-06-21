@@ -35,6 +35,7 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
                 .member(member)
                 .store(store)
                 .title(reviewRequestDTO.getTitle())
+                .body(reviewRequestDTO.getBody())
                 .score(reviewRequestDTO.getScore())
                 .build();
 
@@ -45,6 +46,7 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
                 .memberId(savedReview.getMember().getId())
                 .storeId(savedReview.getStore().getId())
                 .title(savedReview.getTitle())
+                .body(savedReview.getBody())
                 .score(savedReview.getScore())
                 .build();
     }

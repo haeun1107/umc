@@ -7,5 +7,6 @@ public class ReviewRequestDTO {
     Long memberId;
     Long storeId;
     String title;
+    String body;
     Float score;
 }

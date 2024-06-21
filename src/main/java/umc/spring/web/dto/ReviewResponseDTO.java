@@ -11,5 +11,6 @@ public class ReviewResponseDTO {
     private Long memberId;
     private Long storeId;
     private String title;
+    private String body;
     private Float score;
 }
