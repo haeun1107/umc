@@ -1,4 +1,8 @@
-package umc.spring.service.ChallengeService;
+package umc.spring.service.MissionService;
 
-public interface ChallengeCommandService {
+import umc.spring.web.dto.MissionRequestDTO;
+import umc.spring.web.dto.MissionResponseDTO;
+
+public interface MissionCommandService {
+    public MissionResponseDTO addMission(MissionRequestDTO missionRequestDTO);
 }
