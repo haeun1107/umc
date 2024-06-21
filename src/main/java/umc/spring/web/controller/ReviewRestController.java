@@ -1,5 +1,6 @@
 package umc.spring.web.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ public class ReviewRestController {
     public final ReviewCommandService reviewCommandService;
 
     @PostMapping("/add")
-    public ApiResponse<ReviewResponseDTO> addReview(@RequestBody ReviewRequestDTO reviewRequestDTO) {
+    public ApiResponse<ReviewResponseDTO> addReview(@RequestBody @Valid ReviewRequestDTO reviewRequestDTO) {
         return ApiResponse.onSuccess(reviewCommandService.addReview(reviewRequestDTO));
     }
 }
