@@ -65,4 +65,19 @@ public class MissionRestController {
     public ApiResponse<MissionPreviewListDTO> getUserChallengingMissions(@PathVariable(name = "userId") Long userId, @RequestParam(name = "page") @CheckPage Integer page) {
         return ApiResponse.onSuccess(missionQueryService.getUserChallengingMissions(userId, page - 1));
     }
+
+    @Operation(summary = "진행 중인 미션을 완료로 변경하는 API", description = "진행 중인 미션을 완료로 변경하는 API입니다.")
+    @PatchMapping("/complete/{memberMissionId}")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "OK, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH003", description = "access 토큰을 주세요!", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH004", description = "access 토큰 만료", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH006", description = "access 토큰 모양이 이상함", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+    })
+    @Parameters({
+            @Parameter(name = "memberMissionId", description = "멤버 미션의 아이디, path variable 입니다!"),
+    })
+    public ApiResponse<MemberMissionResponseDTO> completeMission(@PathVariable(name = "memberMissionId") Long memberMissionId) {
+        return ApiResponse.onSuccess(missionCommandService.completeMission(memberMissionId));
+    }
 }

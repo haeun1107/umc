@@ -73,4 +73,20 @@ public class MissionCommandServieImpl implements MissionCommandService {
                 .status(savedMemberMission.getStatus())
                 .build();
     }
+
+    @Transactional
+    public MemberMissionResponseDTO completeMission(Long memberMissionId) {
+        MemberMission memberMission = memberMissionRepository.findById(memberMissionId)
+                .orElseThrow(() -> new TempHandler(ErrorStatus.MEMBER_MISSION_NOT_FOUND));
+
+        memberMission.updateStatus(MissionStatus.COMPLETE);
+        MemberMission savedMemberMission = memberMissionRepository.save(memberMission);
+
+        return MemberMissionResponseDTO.builder()
+                .id(savedMemberMission.getId())
+                .memberId(savedMemberMission.getMember().getId())
+                .missionId(savedMemberMission.getMission().getId())
+                .status(savedMemberMission.getStatus())
+                .build();
+    }
 }
