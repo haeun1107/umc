@@ -6,4 +6,5 @@ import umc.spring.web.dto.MissionResponseDTO;
 
 public interface MissionQueryService {
     MissionPreviewListDTO getMissionsByStore(Long storeId, Integer page);
+    MissionPreviewListDTO getUserChallengingMissions(Long userId, Integer page);
 }
