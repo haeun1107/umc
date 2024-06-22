@@ -10,6 +10,7 @@ import java.util.Optional;
 public interface StoreQueryService {
 
     Optional<Store> findStore(Long id);
-
     ReviewPreviewListDTO getReviewList(Long StoreId, Integer page);
+    ReviewPreviewListDTO getUserReviews(Long userId, Integer page);
+
 }

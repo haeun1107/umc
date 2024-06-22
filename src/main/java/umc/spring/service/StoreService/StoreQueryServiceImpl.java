@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import umc.spring.apiPayload.exception.handler.TempHandler;
+import umc.spring.code.status.ErrorStatus;
 import umc.spring.entity.Review;
 import umc.spring.entity.Store;
 import umc.spring.repository.ReviewRepository;
@@ -49,6 +51,28 @@ public class StoreQueryServiceImpl implements StoreQueryService{
                 .totalElements(StorePage.getTotalElements())
                 .isFirst(StorePage.isFirst())
                 .isLast(StorePage.isLast())
+                .build();
+        return dto;
+    }
+
+    @Override
+    public ReviewPreviewListDTO getUserReviews(Long userId, Integer page) {
+        Page<Review> reviewPage = reviewRepository.findAllByMemberId(userId, PageRequest.of(page, 10));
+
+        ReviewPreviewListDTO dto = ReviewPreviewListDTO.builder()
+                .reviewList(reviewPage.getContent().stream()
+                        .map(review -> ReviewPreviewDTO.builder()
+                                .ownerNickname(review.getMember().getName())
+                                .score(review.getScore())
+                                .body(review.getBody())
+                                .createdAt(review.getCreatedAt().toLocalDate())
+                                .build())
+                        .collect(Collectors.toList()))
+                .listSize(reviewPage.getSize())
+                .totalPage(reviewPage.getTotalPages())
+                .totalElements(reviewPage.getTotalElements())
+                .isFirst(reviewPage.isFirst())
+                .isLast(reviewPage.isLast())
                 .build();
         return dto;
     }
