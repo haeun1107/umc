@@ -25,7 +25,10 @@ public class MemberMission extends BaseEntity {
     @JoinColumn(name = "mission_id")
     private Mission mission;
 
-
     @Enumerated(EnumType.STRING)
     private MissionStatus status;
+
+    public void updateStatus(MissionStatus status) {
+        this.status = status;
+    }
 }
